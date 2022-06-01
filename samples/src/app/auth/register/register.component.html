@@ -1,0 +1,10 @@
+<form [formGroup]="RegisterForm" (ngSubmit)="registeruser()"  >
+   <label for="">username</label><br>
+   <input type="text" formControlName="username" ><br>
+   <label for="">password</label><br>
+   <input type="text" formControlName="password" ><br>
+   <label for="">Fullname</label><br>
+   <input type="text" formControlName="name" ><br>
+   <button >Register</button>
+   <a href="" routerLink="/login">back</a>
+</form>

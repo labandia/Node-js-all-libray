@@ -1,0 +1,8 @@
+<form [formGroup]="LoginForm" (ngSubmit)="login()"  >
+   <label for="">username</label><br>
+   <input type="text" formControlName="username" ><br>
+   <label for="">password</label><br>
+   <input type="text" formControlName="password" ><br>
+   <button >Sign in</button>
+   <a href="" routerLink="/register">Register here</a>
+</form>

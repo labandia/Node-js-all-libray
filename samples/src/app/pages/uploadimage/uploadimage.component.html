@@ -1,0 +1,10 @@
+<h1>UPLOAD IMAGE</h1>
+
+<p>Single upload</p>
+<input type="file" (change)="handlefileinput($event)">
+<button (click)="upload()">Upload a image</button>
+
+<p>Multiple upload</p>
+<input type="file" (change)="multipleupload($event)" multiple>
+
+<img [src]="url" (change)="handlefileinput($event)" alt="" width="250px" >
