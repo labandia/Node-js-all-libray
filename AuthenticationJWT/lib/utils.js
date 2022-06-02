@@ -29,7 +29,7 @@ function validatepassword(password, hash, salt){
 function issueJWT(user){
    const id = user.user_id;
 
-   const expiresIn = '30s';
+   const expiresIn = '1d';
 
    const payload = {
       sub: id,

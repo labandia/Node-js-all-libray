@@ -1,8 +1,19 @@
-<form [formGroup]="LoginForm" (ngSubmit)="login()"  >
+<form [formGroup]="LoginForm" #logsform="ngForm" (ngSubmit)="login()"  >
    <label for="">username</label><br>
-   <input type="text" formControlName="username" ><br>
+   <input type="text" formControlName="username" class="formscontrol">
+   <div class="invalid-feedback" *ngIf="logsform.submitted && f['username'].errors!">
+         <div *ngIf="f['username'].errors!['required']">
+               <sup>*</sup>username is required
+         </div>
+   </div>
+   <br>
    <label for="">password</label><br>
    <input type="text" formControlName="password" ><br>
+   <div class="invalid-feedback" *ngIf="logsform.submitted && f['password'].errors!">
+         <div *ngIf="f['password'].errors!['required']">
+               <sup>*</sup>password is required
+         </div>
+   </div>
    <button >Sign in</button>
-   <a href="" routerLink="/register">Register here</a>
+   <a  routerLink="/register" >Register here</a>
 </form>

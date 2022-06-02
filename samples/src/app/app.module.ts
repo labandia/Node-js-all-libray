@@ -11,7 +11,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AuthService } from './auth/services/auth.service';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from './auth/auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { AuthGuard } from './auth/auth.guard';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule
   ],
   providers: [

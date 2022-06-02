@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -7,10 +8,16 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './protectedroute.component.html',
   styleUrls: ['./protectedroute.component.scss']
 })
-export class ProtectedrouteComponent implements OnInit {
+export class ProtectedrouteComponent implements OnInit, OnDestroy {
   message : string = '';
+  Subscription : Subscription | undefined;
 
   constructor(public auth: AuthService, public router: Router) { }
+
+
+  ngOnDestroy(): void {
+    this.Subscription?.unsubscribe();
+  }
 
   ngOnInit(): void {
 
@@ -20,6 +27,8 @@ export class ProtectedrouteComponent implements OnInit {
         console.log(error);
     })
   }
+
+  
 
   Logout(){
     this.auth.userlogout();

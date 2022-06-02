@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+
+import { MustMatch } from 'src/app/helpers/must-match.validator';
 
 
 @Component({
@@ -18,20 +20,30 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
      this.RegisterForm = this.fb.group({
-      username: new FormControl(''),
-      password: new FormControl(''),
-      name: new FormControl('')
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      Corfirmpassword: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required])
+    }, {
+      updateOn: 'submit', 
+      validators: MustMatch('password', 'Corfirmpassword')
     });
   }
 
+  get f(){
+     return this.RegisterForm.controls;
+  }
+
   registeruser(){
-      this.auth
-      .posdata('register', this.RegisterForm.value)
-      .toPromise()
-      .then((data: any) => {
-        console.log(data);
-        this.router.navigateByUrl('/login');
-      });
+      if(this.RegisterForm.valid){
+        this.auth
+        .posdata('register', this.RegisterForm.value)
+        .toPromise()
+        .then((data: any) => {
+          console.log(data);
+          this.router.navigateByUrl('/login');
+        });
+      }
   }
 
 }

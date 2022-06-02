@@ -22,7 +22,10 @@ const routes: Routes = [
   {
     path: 'admin', 
     component: ProtectedrouteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      animation: 'fadein'
+    }
   },
   {
     path: '',

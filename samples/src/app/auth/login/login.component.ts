@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   LoginForm!: FormGroup;
+  submitted = false;
 
   constructor(public auth: AuthService,
     private router: Router,
@@ -18,20 +19,32 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
      this.LoginForm = this.fb.group({
-      username: new FormControl(''),
-      password: new FormControl(''),
-    });
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    }, {updateOn: 'submit'});
   }
 
   login(){
+    console.log(this.LoginForm.controls);
+    this.submitted = true;
+    if(this.LoginForm.valid){
+          this.auth
+        .posdata('login', this.LoginForm.value)
+        .toPromise()
+        .then((data: any) => {
+          this.auth.storeToken(data);
+          this.router.navigate(['admin']);
+        });
+    }else{
+      // alert('Please fill all the required fields to create a super hero!');
+    }
+  
+  }
 
-    this.auth
-      .posdata('login', this.LoginForm.value)
-      .toPromise()
-      .then((data: any) => {
-        this.auth.storeToken(data);
-        this.router.navigateByUrl('/admin');
-      });
+  get f() { return this.LoginForm.controls; }
+
+  onReset(){
+    this.LoginForm.reset();
   }
 
 }
