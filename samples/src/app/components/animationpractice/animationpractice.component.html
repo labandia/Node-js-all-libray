@@ -1,0 +1,32 @@
+<nav>
+       <li [routerLink]="['/animatecom', 'hello']" routerLinkActive="is-active">
+         <i class='bx bx-color'></i>
+       </li>
+
+       <li [routerLink]="['/animatecom', 'world']" routerLinkActive="is-active">
+         <i class='bx bx-color'></i>
+       </li>
+
+       <li [routerLink]="['/animatecom', 'upload']" routerLinkActive="is-active">
+         <i class='bx bx-color'></i>
+       </li>
+
+       <div class="animation start-home"></div>
+</nav>
+
+
+<!-- <header>
+      <div class="container">
+            <ul>
+               <li><a [routerLink]="['/animatecom', 'hello']">Hide and Show</a></li>
+               <li><a [routerLink]="['/animatecom', 'world']">Staggereffect</a></li>
+            </ul>
+      </div>
+</header> -->
+<!-- <main class="content" [@routerTransition]="preparedOutlet(outlet)">
+   <router-outlet #outlet="outlet"></router-outlet>
+</main> -->
+
+<main class="content">
+   <router-outlet ></router-outlet>
+</main>

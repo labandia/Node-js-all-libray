@@ -1,41 +1,90 @@
-<form [formGroup]="RegisterForm" #regsform="ngForm" (ngSubmit)="registeruser()"  >
-   
-   <label for="">username</label><br>
-   <input type="text" formControlName="username" ><br>
-   <div class="invalid-feedback" *ngIf="regsform.submitted && f['username'].errors!">
-         <div *ngIf="f['username'].errors!['required']">
-               username is required
-         </div>
+<main class="wrapper">
+   <div class="img-container">
+      <img src="assets/florian-olivo-Mf23RF8xArY-unsplash.jpg" alt="">
+      <div class="front">
+            <span>Sample Company</span>
+            <h1>Join the dark side we have a cookies</h1>
+            <ul>
+                  <li>
+                        <a href="">Home</a>
+                  </li>
+                  <li>
+                        <a href="">Contact</a>
+                  </li>
+            </ul>
+      </div>
    </div>
-
-   <label for="">password</label><br>
-   <input type="password" formControlName="password"><br>
-   <div class="invalid-feedback" *ngIf="regsform.submitted && f['password'].errors!">
-         <div *ngIf="f['password'].errors!['required']">
-               password is required
+   <div class="forms">
+         <div class="forms__header">
+           <h2>Register form</h2>
+            <p>Please filled all the input</p>        
          </div>
-         <div *ngIf="f['password'].errors!['minlength']">
-               <sup>*</sup>Password must be at least 6 characters
-         </div>
-   </div>
-   
-   
-   <label for="">Confirm password</label><br>
-   <input type="password" formControlName="Corfirmpassword"><br>
-   <div *ngIf="regsform.submitted && f['Corfirmpassword'].errors!" class="invalid-feedback">
-         <div *ngIf="f['Corfirmpassword'].errors!['required']">Confirm Password is required</div>
-         <div *ngIf="f['Corfirmpassword'].errors!['mustMatch']">Passwords must match</div>
-   </div>
+            <form [formGroup]="RegisterForm" #regsform="ngForm" (ngSubmit)="registeruser()"  >
+                        <div class="forms__group">
+                               <label for="">Username</label>
+                              <input type="text" formControlName="username" >
+                              <div class="invalid-feedback" *ngIf="regsform.submitted && f['username'].errors!">
+                                    <small *ngIf="f['username'].errors!['required']">
+                                          username is required
+                                    </small>
+                              </div>
+                        </div>
+                       
+                        <div class="forms__group">
+                              <label for="">Password</label>
+                              <input type="password" formControlName="password">
+                              <div class="invalid-feedback" *ngIf="regsform.submitted && f['password'].errors!">
+                                    <small *ngIf="f['password'].errors!['required']">
+                                          password is required
+                                    </small>
+                                    <small *ngIf="f['password'].errors!['minlength']">
+                                          <sup>*</sup>Password must be at least 6 characters
+                                    </small>
+                              </div>
+                        </div>
+                        
+                        
+                        <div class="forms__group">
+                              <label for="">Confirm password</label>
+                              <input type="password" formControlName="Corfirmpassword">
+                              <div *ngIf="regsform.submitted && f['Corfirmpassword'].errors!" class="invalid-feedback">
+                                    <small *ngIf="f['Corfirmpassword'].errors!['required']">Confirm Password is required</small>
+                                    <small *ngIf="f['Corfirmpassword'].errors!['mustMatch']">Passwords must match</small>
+                              </div>
+                        </div>
+                        
+
+                        <div class="forms__group">
+                               <label for="">Fullname</label>
+                              <input type="text" formControlName="name" >
+                              <div class="invalid-feedback" *ngIf="regsform.submitted && f['name'].errors!">
+                                    <small *ngIf="f['name'].errors!['required']">
+                                          Fullname is required
+                                    </small>
+                              </div>
+                        </div>
 
 
-   <label for="">Fullname</label><br>
-   <input type="text" formControlName="name" ><br>
-   <div class="invalid-feedback" *ngIf="regsform.submitted && f['name'].errors!">
-         <div *ngIf="f['name'].errors!['required']">
-               Fullname is required
-         </div>
-   </div>
+                       
+                       
 
-   <button type="submit" >Register</button>
-   <a href="" routerLink="/login">back</a>
-</form>
+                  <div class="forms__action">
+                        <button type="submit" >Register</button>
+                        <a href="" routerLink="/login">back</a>
+                  </div>
+            </form>
+   </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+

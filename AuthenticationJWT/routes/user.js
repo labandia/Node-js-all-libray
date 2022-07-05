@@ -56,6 +56,27 @@ router.post('/register', async (req, res)=>{
 //    res.status(200).json({ success: true, msg: 'you are authorized'})
 // });
 
+
+router.post('/postblog',(req, res)=>{
+   let {title, desc, image} = req.body;
+   connection.query("INSERT INTO blog (title, description) VALUES (?,?)", 
+      [title, desc]);
+      
+   res.json({ success: true, message: 'Blog added success'});
+})
+
+
+router.get('/getblog',  async(req, res)=>{
+   let [data] = await connection.query('SELECT * FROM blog');
+   res.status(200).json({ success: true, payload: data})
+}); 
+
+router.get('/getblog2/:id',  async(req, res)=>{
+   let id = req.params.id;
+   let [data] = await connection.query('SELECT * FROM blog WHERE title = ?', [id]);
+   res.status(200).json({ success: true, payload: data})
+});
+
 router.get('/protectedroute', authMiddleware,  (req, res)=>{
    res.status(200).json({ success: true, msg: 'you are authorized'})
 });

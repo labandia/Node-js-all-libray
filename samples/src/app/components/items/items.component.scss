@@ -1,0 +1,53 @@
+// .grid{
+//    display: grid;
+//    grid-template-columns: repeat(auto-fit, minmax(250px , 1fr));
+//    gap: 1rem;
+// }
+
+.card{
+   width: 200px;
+   border: 1px solid tomato;
+   animation: slidein 1s;
+}
+
+img{
+   width: 200px;
+   height: 200px;
+}
+
+.imagerotate{
+   position: absolute;
+   left: 50%;
+   &.loading{
+      animation: spinning 4000ms ease-in infinite;
+      opacity: 1;
+   }
+}
+
+@keyframes slidein {
+   0%{
+      transform: translateX(-100%);
+   }
+   100%{
+      transform: translateX(0%);
+   }
+}
+
+@keyframes spinning{
+   0%{
+      transform: rotate(0deg);
+   }
+   50%{
+      transform: rotate(360deg);
+   }
+   75%{
+      transform: rotate(360deg) translateX(-10px);
+   }
+   87%{
+      transform: rotate(360deg) translateX(0);
+   }
+   100%{
+      transform: rotate(360deg) translateX(20px);
+      opacity: 0;
+   }
+}

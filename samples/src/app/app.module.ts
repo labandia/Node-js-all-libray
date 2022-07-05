@@ -12,6 +12,11 @@ import { AuthService } from './auth/services/auth.service';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AnimationpracticeComponent } from './components/animationpractice/animationpractice.component';
+import { OthersComponent } from './components/others/others.component';
+import { ItemsComponent } from './components/items/items.component';
+import { Defautlimage } from './pipes/imageurl.pipe';
+import { BadEnglishpipe } from './pipes/badwordsenglish.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UploadimageComponent,
     LoginComponent,
     ProtectedrouteComponent,
-    RegisterComponent
+    RegisterComponent,
+    AnimationpracticeComponent,
+    OthersComponent,
+    ItemsComponent,
+    Defautlimage,
+    BadEnglishpipe
   ],
   imports: [
     BrowserModule,

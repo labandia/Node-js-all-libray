@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { config } from '../../config';
 import * as moment from 'moment'; 
-
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+   result : any =[];
 
    constructor(private http: HttpClient) {}
 
@@ -19,6 +20,18 @@ export class AuthService {
 
    public getdata(route: string){
       return this.http.get<any>(`${config.apiUrl}${route}`);
+   }
+
+
+   searchdata(term: string){
+      let request = `${config.apiUrl}getblog2/${term}`;
+      return this.http.get<any>(request).pipe(
+         map(res=>{ 
+            console.log(res);
+         })
+      ).subscribe(data=>{
+            // console.log(data);
+      })
    }
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -24,10 +24,19 @@ export class RegisterComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       Corfirmpassword: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required])
-    }, {
-      updateOn: 'submit', 
-      validators: MustMatch('password', 'Corfirmpassword')
-    });
+     }
+    //, {
+    //   updateOn: 'submit', 
+    //   validators: MustMatch('password', 'Corfirmpassword')
+    // }
+    );
+
+
+    this.RegisterForm.valueChanges.subscribe(data=>{
+       if(this.RegisterForm.valid){
+          console.log(data)
+       }
+    })
   }
 
   get f(){

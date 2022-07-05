@@ -1,0 +1,23 @@
+<button (click)="showpanel()">Show</button>
+
+<div *ngIf="show"    >
+   <p>OPEN</p>
+</div>
+
+<form [formGroup]="BlogForm" (ngSubmit)="addBlog()">
+   <label for="">Title</label>
+    <input type="text" formControlName="title">
+   <label for="">Description</label>
+    <input type="text" formControlName="desc">
+    <button type="submit" value="submit">Add</button>
+</form>
+<hr>
+   <input type="text" [formControl]="searchField">
+   <button (click)="searchitem()">Search</button>
+<hr>
+<ul>
+   <li *ngFor="let item of blog">
+       <h3>{{item.title}}</h3>
+       <p>{{item.description}}</p>
+   </li>
+</ul>

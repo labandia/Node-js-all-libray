@@ -1,19 +1,58 @@
-<form [formGroup]="LoginForm" #logsform="ngForm" (ngSubmit)="login()"  >
-   <label for="">username</label><br>
-   <input type="text" formControlName="username" class="formscontrol">
-   <div class="invalid-feedback" *ngIf="logsform.submitted && f['username'].errors!">
-         <div *ngIf="f['username'].errors!['required']">
-               <sup>*</sup>username is required
-         </div>
+<main class="wrapper">
+   <div class="img-container">
+      <img src="assets/florian-olivo-Mf23RF8xArY-unsplash.jpg" alt="">
+       <div class="front">
+            <span>Sample Company</span>
+            <h1>Join the dark side we have a cookies</h1>
+            <ul>
+                  <li>
+                        <a href="">Home</a>
+                  </li>
+                  <li>
+                        <a href="">Contact</a>
+                  </li>
+            </ul>
+      </div>
    </div>
-   <br>
-   <label for="">password</label><br>
-   <input type="text" formControlName="password" ><br>
-   <div class="invalid-feedback" *ngIf="logsform.submitted && f['password'].errors!">
-         <div *ngIf="f['password'].errors!['required']">
-               <sup>*</sup>password is required
-         </div>
+   <div class="forms">
+      <div class="forms__header">
+           <h2>Welcome back</h2>
+            <p>Please enter sign-up to continue</p>        
+      </div>
+      <form [formGroup]="LoginForm" #logsform="ngForm" (ngSubmit)="login()"  >
+            <div class="forms__group">
+                  <label for="">Username</label>
+                  <input type="text" formControlName="username" class="formscontrol">
+                   <div class="invalid-feedback" *ngIf="logsform.submitted && f['username'].errors!">
+                  <small *ngIf="f['username'].errors!['required']">
+                        *username is required
+                  </small>
+            </div>
+            </div>
+           
+            <div class="forms__group">
+                    <label for="">Password</label><br>
+                    <input type="password" formControlName="password" >
+
+                   <div class="invalid-feedback" *ngIf="logsform.submitted && f['password'].errors!">
+                        <small *ngIf="f['password'].errors!['required']">
+                              *password is required
+                        </small>
+                  </div>
+            </div>
+
+             <!-- <div class="forms__group" formGroupName="fullname">
+                              <label for="">Firstname</label>
+                              <input type="text" formControlName="firstname" >
+                               <label for="">Lastname</label>
+                              <input type="text" formControlName="lastname" >
+                        </div> -->
+           
+            <div class="forms__action">
+                  <button *ngIf="isloading == false">Sign in</button>
+                  <button *ngIf="isloading == true">loading.....</button>
+                  <a  routerLink="/register" >Register here</a>
+            </div>
+            </form>
    </div>
-   <button >Sign in</button>
-   <a  routerLink="/register" >Register here</a>
-</form>
+</main>

@@ -1,1 +1,162 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+   margin: 0;
+   padding: 0;
+   font-family: 'Fira code', sans-serif;
+   box-sizing: border-box;
+}
+
+body{
+   min-height: 100vh;
+   overflow: hidden;
+}
+
+
+
+
+.wrapper{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   .forms, .img-container{
+     position: relative;
+     height: 100vh;
+   }
+}
+
+.img-container{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   h1{
+      color: #fff;
+   }
+   &::before{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 0;
+   }
+   .front{
+      position: relative;
+      width: 500px;
+      height: 70%;
+      z-index: 100;
+      padding: 2.5em;
+      h1{
+         font-weight: 400;
+         font-size: 2rem;
+         margin-top: 1em;
+      }
+      span{
+         color: #792aff;
+      }
+   }
+}
+
+
+.wrapper ul{
+   position: absolute;
+   bottom: 0;
+   display: flex;
+   align-items: center;
+   column-gap: 1em;
+   li{
+      list-style: none;
+      a{
+         text-decoration: none;
+         color: #792aff;
+      }
+   }
+}
+
+.forms{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+
+   &__header{
+      width: 450px;
+      text-align: left;
+      
+      h2{
+      margin-bottom: .5em;
+      }
+
+      p{
+         margin-bottom: 2em;
+         font-size: .9rem;
+         color: #838383;
+      }
+   }
+
+   &__group{
+      margin-bottom: 1.5em;
+      small{
+         font-weight: 600;
+      }
+   }
+   
+
+  
+
+   form{
+      width: 450px;
+      label{
+         color: #838383;
+         font-weight: 600;
+      }
+      input{
+         width: 100%;
+         border: none;
+         border-bottom: 1px solid #bbbbbb;
+         font-size: 1.1rem;
+         margin-top: .5em;
+         // margin-bottom: .5em;
+         outline: none;
+      }
+      input[type="password"]{
+         color: #792aff;
+      }
+   }
+
+   &__action{
+      display: flex;
+      align-items: center;
+      gap: 1.5em;
+      margin-top: 1em;
+      button{
+         background-color: #792aff;
+         width: 200px;
+         padding: 1em;
+         color: #fff;
+         border: none;
+         font-weight: 600;
+         border-radius: 25px;
+      }
+      a{
+         color: rgb(61, 61, 61);
+      }
+   }
+}
+
+sup{
+   margin: 0;
+}
+
+img{
+   width: 100%;
+   height: 100vh;
+   object-fit: cover;
+   position: absolute;
+   z-index: -1;
+}
+
+.formscontrol.is-invalid{
+   outline: red;
+}
+
+.invalid-feedback{
+   color: red;
+}

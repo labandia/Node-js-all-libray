@@ -20,7 +20,6 @@ export class ProtectedrouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.auth.getdata('protectedroute').subscribe((data: any)=>{
         this.message = data.msg;
     }, (error)=>{
@@ -28,7 +27,6 @@ export class ProtectedrouteComponent implements OnInit, OnDestroy {
     })
   }
 
-  
 
   Logout(){
     this.auth.userlogout();

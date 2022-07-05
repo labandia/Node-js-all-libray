@@ -46,11 +46,18 @@ export class UploadimageComponent implements OnInit {
 
   handlefileinput(e: any){
     this.onselectedfile =  e.target.files[0];
-
     //Show image preview
     const reader = new FileReader();
     reader.onload = (event: any)=>{
+      const imgElement = document.createElement('img');
       this.url = event.target.result as string;
+
+      imgElement.onload = function(ev: any){
+        const canva = document.createElement('canvas');
+        const ctx = canva.getContext('2d');
+        const srcEncoded = ctx?.canvas.toDataURL(ev.target, "image/jpeg");
+        console.log(srcEncoded);
+      }
     }
 
     reader.readAsDataURL(this.onselectedfile)
