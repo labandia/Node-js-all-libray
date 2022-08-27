@@ -1,84 +1,105 @@
-const router = require('express').Router();
-const connection = require('../config/Connection');
-const genPassword = require('../lib/utils').genPassword;
-const validatepassword = require('../lib/utils').validatepassword;
-const issueJWT = require('../lib/utils').issueJWT;
-const authMiddleware = require('../lib/utils').authMiddleware;
+const router = require("express").Router();
+const connection = require("../config/Connection");
+const genPassword = require("../lib/utils").genPassword;
+const validatepassword = require("../lib/utils").validatepassword;
+const issueJWT = require("../lib/utils").issueJWT;
+const authMiddleware = require("../lib/utils").authMiddleware;
 
+router.post("/login", async (req, res, next) => {
+   let { username, password } = req.body;
+   const sql = "SELECT * FROM users WHERE username = ?";
 
-router.post('/login', async(req, res, next)=>{
-   let {username, password} = req.body;
-   const sql = 'SELECT * FROM users WHERE username = ?';
+   //CHECK IF THE USERNAME AND PASSWORD IS EMPTy
+   if (!username || !password)
+      return res.status(400).json({
+         message: "Username and password are required.",
+      });
 
    try {
       let [users] = await connection.query(sql, [username]);
-      const isvalid = validatepassword(password, users[0].hashpassword, users[0].salt);
 
-      if(isvalid){
+      if (!users) return res.sendStatus(401); //Unauthorized
+
+      // evaluate password
+      const isvalid = validatepassword(
+         password,
+         users[0].hashpassword,
+         users[0].salt
+      );
+
+      if (isvalid) {
+         // create JWTs
          const tokenobject = issueJWT(users[0]);
          res.status(200).json({
             success: true,
-            user: users,
+            user: {
+               id: users[0].user_id,
+               name: users[0].username,
+            },
             token: tokenobject.token,
-            expiresIn: tokenobject.expiresIn
-         })
-      }else{
+            expiresIn: tokenobject.expiresIn,
+         });
+      } else {
          res.status(401).json({
             success: false,
-            msg: 'You entered the wrong password'
-         })
+            msg: "You entered the wrong password",
+         });
       }
    } catch (error) {
-     next(error);
+      next(error);
    }
 });
 
-router.post('/register', async (req, res)=>{
+router.post("/register", async (req, res) => {
    const saltHash = genPassword(req.body.password);
 
    const salt = saltHash.salt;
    const hash = saltHash.hash;
 
-   let user ={
+   let user = {
       username: req.body.username,
       hashpassword: hash,
       salt: salt,
-      name: req.body.name
-   }
+      name: req.body.name,
+   };
 
-   await connection.query("INSERT INTO users (username, hashpassword, salt, name) VALUES (?,?,?,?)", 
-      [user.username, user.hashpassword, user.salt, user.name]);
-      
-   res.json({ success: true, message: 'User Created'});
+   await connection.query(
+      "INSERT INTO users (username, hashpassword, salt, name) VALUES (?,?,?,?)",
+      [user.username, user.hashpassword, user.salt, user.name]
+   );
+
+   res.json({ success: true, message: "User Created" });
 });
 
 // router.get('/protectedroute', passport.authenticate('jwt', {session: false}),  (req, res)=>{
 //    res.status(200).json({ success: true, msg: 'you are authorized'})
 // });
 
+router.post("/postblog", (req, res) => {
+   let { title, desc, image } = req.body;
+   connection.query("INSERT INTO blog (title, description) VALUES (?,?)", [
+      title,
+      desc,
+   ]);
 
-router.post('/postblog',(req, res)=>{
-   let {title, desc, image} = req.body;
-   connection.query("INSERT INTO blog (title, description) VALUES (?,?)", 
-      [title, desc]);
-      
-   res.json({ success: true, message: 'Blog added success'});
-})
+   res.json({ success: true, message: "Blog added success" });
+});
 
+router.get("/getblog", async (req, res) => {
+   let [data] = await connection.query("SELECT * FROM blog");
+   res.status(200).json({ success: true, payload: data });
+});
 
-router.get('/getblog',  async(req, res)=>{
-   let [data] = await connection.query('SELECT * FROM blog');
-   res.status(200).json({ success: true, payload: data})
-}); 
-
-router.get('/getblog2/:id',  async(req, res)=>{
+router.get("/getblog2/:id", async (req, res) => {
    let id = req.params.id;
-   let [data] = await connection.query('SELECT * FROM blog WHERE title = ?', [id]);
-   res.status(200).json({ success: true, payload: data})
+   let [data] = await connection.query("SELECT * FROM blog WHERE title = ?", [
+      id,
+   ]);
+   res.status(200).json({ success: true, payload: data });
 });
 
-router.get('/protectedroute', authMiddleware,  (req, res)=>{
-   res.status(200).json({ success: true, msg: 'you are authorized'})
+router.get("/protectedroute", authMiddleware, (req, res) => {
+   res.status(200).json({ success: true, msg: "you are authorized" });
 });
- 
+
 module.exports = router;

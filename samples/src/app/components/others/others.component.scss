@@ -1,9 +1,16 @@
-ul{
-   margin-top: 1em;
+ul {
+  margin-top: 1em;
 }
 
-ul li{
-   list-style: none;
-   border: 1px solid tomato;
-   padding: 1em;
+ul li {
+  list-style: none;
+  border: 1px solid tomato;
+  padding: 1em;
+}
+
+.btn-disabled {
+  background-color: crimson;
+  color: #fff;
+  padding: 1em 1.5em;
+  border: none;
 }

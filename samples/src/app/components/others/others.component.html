@@ -1,4 +1,4 @@
-<button (click)="showpanel()">Show</button>
+<!-- <button (click)="showpanel()">Show</button>
 
 <div *ngIf="show"    >
    <p>OPEN</p>
@@ -20,4 +20,14 @@
        <h3>{{item.title}}</h3>
        <p>{{item.description}}</p>
    </li>
-</ul>
+</ul> -->
+
+<h2>Animate true and false condition</h2>
+<hr />
+<button
+  [@disableeffect]="buttonselected ? 'enabled' : 'disable'"
+  (click)="triggerbtn()"
+  class="btn-disabled"
+>
+  trigger the button
+</button>

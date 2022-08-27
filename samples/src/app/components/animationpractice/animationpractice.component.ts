@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, RouterOutlet, Router } from '@angular/router';
 import { fadeinandout, staggereffect } from '../animation';
 import { fader, route2animation } from '../route.animtaion2';
 
@@ -7,35 +7,37 @@ import { fader, route2animation } from '../route.animtaion2';
   selector: 'app-animationpractice',
   templateUrl: './animationpractice.component.html',
   styleUrls: ['./animationpractice.component.scss'],
-  animations: [
-    fadeinandout,
-    staggereffect,
-    fader,
-    route2animation
-  ]
+  animations: [fadeinandout, staggereffect, fader, route2animation],
 })
 export class AnimationpracticeComponent implements OnInit {
-
   show: boolean = true;
 
-  turnanim: boolean = true;
+  turnanim: any = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  preparedOutlet(outlet: RouterOutlet){
-      //  return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
-      if(this.turnanim == true){
-        this.turnanim = false;
-        return outlet.activatedRouteData['state'];
+  constructor(private rt: Router) {
+    rt.events.subscribe((evt) => {
+      // will trigger each time there's a route change.
+      if (evt instanceof NavigationEnd) {
+        this.turnanim = evt.url.match('animation');
       }
-        
+    });
   }
 
+  ngOnInit(): void {}
 
-  showpanel(){
+  preparedOutlet(outlet: RouterOutlet) {
+    return (
+      outlet &&
+      outlet.activatedRouteData &&
+      outlet.activatedRouteData['animation']
+    );
+    // if(this.turnanim == true){
+    //   this.turnanim = false;
+    //   return outlet.activatedRouteData['state'];
+    // }
+  }
+
+  showpanel() {
     this.show = !this.show;
   }
 }

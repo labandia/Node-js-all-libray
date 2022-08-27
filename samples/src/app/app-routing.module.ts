@@ -11,16 +11,16 @@ import { UploadimageComponent } from './pages/uploadimage/uploadimage.component'
 
 const routes: Routes = [
   {
-    path: 'image_section', 
-    component: UploadimageComponent
+    path: 'image_section',
+    component: UploadimageComponent,
   },
   {
-    path: 'login', 
-    component: LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path: 'register', 
-    component: RegisterComponent
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: 'animatecom',
@@ -29,47 +29,44 @@ const routes: Routes = [
       {
         path: 'hello',
         component: OthersComponent,
-        // data: {
-        //   animation: 'hello',
-        //   state: 'home'
-        // }
+        data: {
+          animation: 'hello',
+        },
       },
       {
         path: 'world',
         component: ItemsComponent,
-        // data: {
-        //   animation: 'world',
-        //   state: 'about'
-        // }
+        data: {
+          animation: 'world',
+        },
       },
       {
         path: 'upload',
         component: UploadimageComponent,
-        // data: {
-        //   animation: 'world',
-        //   state: 'about'
-        // }
-      }
-    ]
+        data: {
+          animation: 'world',
+        },
+      },
+    ],
   },
   {
-    path: 'admin', 
+    path: 'admin',
     component: ProtectedrouteComponent,
     canActivate: [AuthGuard],
     data: {
-      animation: 'fadein'
-    }
+      animation: 'fadein',
+    },
   },
   {
     path: '',
-    redirectTo: 'animatecom/hello', 
-    // redirectTo: 'login', 
-    pathMatch: 'full'
-  }
+    redirectTo: 'animatecom/hello',
+    // redirectTo: 'login',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
